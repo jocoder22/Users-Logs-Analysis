@@ -12,8 +12,10 @@ create a view table: this creates a new  temporary table, articles2 that
 updated the values in column slug to march those in path for
 forming a join for our query later.
 """
-cur.execute("create view articles2 as select author, title,
-            concat('/article/', slug) as slug2 from articles; ")
+
+articles2 = "create view articles2 as select author, title,\
+concat('/article/', slug) as slug2 from articles; "
+cur.execute(article2)
 
 
 """ Query the database to answer the first question: """
@@ -57,23 +59,27 @@ create a view table logview: this creates a temporary table logview from the
 log table with updated status column to having only the codes as code.
 We use this view table to create other view tables below
 """
-cur.execute("create view logview as select substring(status from 1 for 3) as
-            code, to_char(time, 'FMMonth DD, YYYY') as day, count(path) as
-            views from log group by code, day; ")
+logview = "create view logview as select substring(status from 1 for 3) as \
+code, to_char(time, 'FMMonth DD, YYYY') as day, count(path) as views from log \
+group by code, day; "
+cur.execute(logview)
 
 """
 create another view table viewsum: this creates a temporary table to sum the
 total visit to the sites each day from logview view table
 """
-cur.execute("create view viewsum as select day, sum(views) as totalviews
-            from logview group by day; ")
+viewsum = "create view viewsum as select day, sum(views) as totalviews from \
+logview group by day; "
+cur.execute(viewsum)
 
 """
 create a view table code400: this creates temporary table to select only the
 subset from view table logview records of error requests  per day
 """
-cur.execute("create view code400 as select code, day, views from logview group
-            by views, day, code having code != '200'; ")
+
+code400 = "create view code400 as select code, day, views from logview group \
+by views, day, code having code != '200'; "
+cur.execute(code400)
 
 # using the two table views above to find the percentage
 

@@ -14,7 +14,7 @@ cur.execute("create view articles2 as select author, title, concat('/article/',s
 # Query the database to answer the first question:
 # What is the most popular three articles of all time?
 
-query1 = "select a.title as article, count(b.path) as views from articles2 a, log b where a.slug2 = b.path group by b.path, a.title order by views desc limit 3;"
+query1 = "select a.title as article, count(b.name) as views from articles2 a, log b where a.slug2 = b.path group by b.path, a.title order by views desc limit 3;"
 
 # pass query1 to the cursor to execute and store result as answer1
 cur.execute(query1)

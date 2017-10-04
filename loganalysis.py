@@ -1,4 +1,4 @@
-# Python 2.7.12
+#!/usr/bin/env python
 import psycopg2
 
 # Connect to an existing database
@@ -15,13 +15,13 @@ forming a join for our query later.
 
 articles2 = "create view articles2 as select author, title,\
 concat('/article/', slug) as slug2 from articles; "
-cur.execute(article2)
+cur.execute(articles2)
 
 
 """ Query the database to answer the first question: """
 """ What is the most popular three articles of all time? """
 
-query1 = "select a.title as article, count(b.path) as views from articles2 a,\
+query1 = "select a.title as article, count(*) as views from articles2 a,\
 log b where a.slug2 = b.path group by b.path, a.title \
 order by views desc limit 3; "
 
@@ -29,9 +29,9 @@ order by views desc limit 3; "
 cur.execute(query1)
 answer1 = cur.fetchall()
 print 'The three most popular articles of all time are:'
-for i in range(len(answer1)):
-    print '"{0[0]}" - {0[1]} views'.format(answer1[i])
-
+for title, views in answer1:
+    print '"{}" - {} views'.format(title, views)
+    
 print
 print
 
@@ -46,8 +46,8 @@ order by views desc;"
 cur.execute(query2)
 answer2 = cur.fetchall()
 print 'The most popular article author of all time is:'
-for i in range(len(answer2)):
-    print '"{0[0]}" - {0[1]} views'.format(answer2[i])
+for name, views in answer1:
+    print '"{}" - {} views'.format(name, views)
 
 print
 print
@@ -60,7 +60,7 @@ log table with updated status column to having only the codes as code.
 We use this view table to create other view tables below
 """
 logview = "create view logview as select substring(status from 1 for 3) as \
-code, to_char(time, 'FMMonth DD, YYYY') as day, count(path) as views from log \
+code, to_char(time, 'FMMonth FMDD, YYYY') as day, count(path) as views from log \
 group by code, day; "
 cur.execute(logview)
 
@@ -85,13 +85,14 @@ cur.execute(code400)
 
 query3 = "select round(100.0 * (a.views / b.totalviews), 1) as percentage, \
 a.day from code400 a, viewsum b where a.day = b.day \
-order by percentage desc limit 1; "
+order by percentage desc; "
 
 # pass query3 to the cursor to execute and return result
 cur.execute(query3)
-answer3 = cur.fetchone()
+answer3 = cur.fetchall()
 print 'The day with more than 1% error request is:'
-print '{0[1]} - {0[0]}% errors'.format(answer3)
+for percentage, day in answer3:
+    print '{} - {}%'.format(day, percentage)
 
 
 # Close communication with the database

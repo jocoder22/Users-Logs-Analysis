@@ -46,7 +46,7 @@ order by views desc;"
 cur.execute(query2)
 answer2 = cur.fetchall()
 print 'The most popular article author of all time is:'
-for name, views in answer1:
+for name, views in answer2:
     print '"{}" - {} views'.format(name, views)
 
 print

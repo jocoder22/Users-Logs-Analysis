@@ -1,7 +1,7 @@
 # PURPOSE:
 This purpose of this project is to analyze PostgreSQL database to reach business conclusion using an internal using tool. The internal reporting tool is a Python program using the psycopg2 module to connect to the database.
 
-#### BACKGROUND:
+# BACKGROUND:
 The database is from a newspaper website. The database contains newspaper articles and web Sever log of activities on the site by readers. The log has a database row for each time a reader load a web page.
 
 The database includes three tables vis:
@@ -12,11 +12,11 @@ The database includes three tables vis:
 # PROJECT:
 The project will build an internal reporting tool that uses information form the database to discover reader's activity and kinds of articles readers. This project will answer the following questions:
 
-  1. what are the most popular three articles of all time?
+  1. What are the most popular three articles of all time?
       - this will report the three articles most viewed by readers.
   2. Who is the most popular article author of all time?
-      - this will report the author who got the most articles viewed by readers when you sum all articles by each author
-  3. The day with more than 1% of requests lead to error?
+      - this will report the author who got the most articles viewed by readers adding together all articles written by each author
+  3. The day with more than 1% of error requests?
       - The log table includes a column status that indicates the HTTP status code that the newspaper site sent to the site user's browse
 
  # CREATED VIEWS:

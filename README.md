@@ -11,12 +11,13 @@ The database includes three tables vis:
 
 # PROJECT:
 The project will build an internal reporting tool that uses information form the database to discover reader's activity and kinds of articles readers. This project will answer the following questions:
-a. what are the most popular three articles of all time?
- -this will report the three articles most viewed by readers.
-b. Who is the most popular article author of all time?
- - this will report the author who got the most articles viewed by readers when you sum all articles by each author
-c. The day with more than 1% of requests lead to error?
- -The log table includes a column status that indicates the HTTP status code that the newspaper site sent to the site user's browse
+
+  1. what are the most popular three articles of all time?
+      - this will report the three articles most viewed by readers.
+  2. Who is the most popular article author of all time?
+      - this will report the author who got the most articles viewed by readers when you sum all articles by each author
+  3. The day with more than 1% of requests lead to error?
+      - The log table includes a column status that indicates the HTTP status code that the newspaper site sent to the site user's browse
 
  # CREATED VIEWS:
  In building this internal reporting tool, I added views to the database. Below are the commands used in creating the views. They commands/codes are include in the python file used for the project.

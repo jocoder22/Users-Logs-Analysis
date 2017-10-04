@@ -31,7 +31,7 @@ answer1 = cur.fetchall()
 print 'The three most popular articles of all time are:'
 for title, views in answer1:
     print '"{}" - {} views'.format(title, views)
-    
+
 print
 print
 
@@ -60,8 +60,8 @@ log table with updated status column to having only the codes as code.
 We use this view table to create other view tables below
 """
 logview = "create view logview as select substring(status from 1 for 3) as \
-code, to_char(time, 'FMMonth FMDD, YYYY') as day, count(path) as views from log \
-group by code, day; "
+code, to_char(time, 'FMMonth FMDD, YYYY') as day, count(path) as views from \
+log group by code, day; "
 cur.execute(logview)
 
 """

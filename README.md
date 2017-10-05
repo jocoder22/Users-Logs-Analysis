@@ -61,7 +61,7 @@ If you have used an older version of this VM, you may need to install it into a 
 If you need to bring the virtual machine back online with `vagrant up`. Then log into it with `vagrant ssh`.
 
 #### DOWNLOADING THE DATA
-Next, [download the data here.](https://d17h27t6h515a5.cloudfront.net/topher/2016/August/57b5f748_newsdata/newsdata.zip) Next unzip this file after downloading. The file inside is called newsdata.sql and put this file into the vagrant directory, which is shared with your virtual machine.
+Next, [download the data here.](https://d17h27t6h515a5.cloudfront.net/topher/2016/August/57b5f748_newsdata/newsdata.zip) Next unzip this file after downloading. The file inside is called `newsdata.sql` and put this file into the vagrant directory, which is shared with your virtual machine.
 
 Now load the newspaper site's data into your local database. To load the data, cd into the vagrant directory and use the command 
 `psql -d news -f newsdata.sql`.

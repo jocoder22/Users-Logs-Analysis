@@ -89,7 +89,7 @@ order by percentage desc; "
 
 # pass query3 to the cursor to execute and return result
 cur.execute(query3)
-answer3 = cur.fetchall()
+answer3 = cur.fetchone()
 print 'The day with more than 1% error request is:'
 for percentage, day in answer3:
     print '{} - {}%'.format(day, percentage)

@@ -20,17 +20,17 @@ The project will build an internal reporting tool that uses information form the
       - The log table includes a column status that indicates the HTTP status code that the newspaper site sent to the site user's browse
 
  # CREATED VIEWS:
- In building this internal reporting tool, I added views to the database. Below are the commands used in creating the views. They commands/codes are include in the python file used for the project.
+ In building this internal reporting tool I used views to query the database. Below are the commands used in creating the views. 
 
  #### VIEW articles2:
-  This creates a temporary table, articles2 that updated the values in column slug to march those in path for forming a join for our query later.
+  This creates the view articles2 that updated the values in column slug to march those in path for forming a join for our query later.
 
  `cur.execute("create view articles2 as select author, title, concat('/article/',slug) as slug2 from articles;")`
 
 
 
 #### VIEW logview:
-  This creates a temporary table logview from the log table with updated status column to having only the codes as code. We use this view table to create other view tables below
+  This creates the view logview from the log table with updated status column to having only the codes as code. We use this view table to create other view tables below
 
  `cur.execute("create view logview as select substring(status from 1 for 3) as code, to_char(time, 'FMMonth DD, YYYY') as day, count(path) as views from log group by code, day;")`
 
@@ -44,7 +44,7 @@ The project will build an internal reporting tool that uses information form the
 
 
  #### VIEW code400:
-  This creates temporary table to select only the subset from view table logview records of error requests  per day
+  This creates the view to select only the subset from view table logview records of error requests  per day
 
  `cur.execute("create view code400 as select code, day, views from logview group by views, day, code having code != '200';")`
 
@@ -52,3 +52,23 @@ The project will build an internal reporting tool that uses information form the
 
 # INTERNAL REPORTING TOOL:
 The final internal reporting tool is the file, `loganalysis.py`
+
+#### USING THE INTERNAL REPORTING TOOL:
+This project makes use of the same Linux-based virtual machine (VM) as the preceding lessons.
+
+If you have used an older version of this VM, you may need to install it into a new directory.
+
+If you need to bring the virtual machine back online with `vagrant up`. Then log into it with `vagrant ssh`.
+
+#### DOWNLOADING THE DATA
+Next, [download the data here.](https://d17h27t6h515a5.cloudfront.net/topher/2016/August/57b5f748_newsdata/newsdata.zip) Next unzip this file after downloading. The file inside is called newsdata.sql and put this file into the vagrant directory, which is shared with your virtual machine.
+
+Now load the newspaper site's data into your local database. To load the data, cd into the vagrant directory and use the command 
+`psql -d news -f newsdata.sql`.
+Here's what this command does:
+
+- psql — the PostgreSQL command line program
+- -d news — connect to the database named news which has been set up for you
+- -f newsdata.sql — run the SQL statements in the file newsdata.sql
+
+Running this command will connect to your installed database server and execute the SQL commands in the downloaded file, creating tables and populating them with data.

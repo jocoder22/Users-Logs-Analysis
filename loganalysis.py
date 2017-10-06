@@ -1,12 +1,25 @@
 #!/usr/bin/env python
 import psycopg2
 
+
 # Connect to an existing database
-conn = psycopg2.connect("dbname=news")
+def connect(database_name):
+    """  Connect to the PostgreSQL database. Returns a database connection. """
+    try:
+        db = psycopg2.connect("dbname={}".format(database_name))
+        c = db.cursor()
+        return db, c
+    except psycopg2.Error as e:
+        print "Unable to connect to database"
+        # THEN perhaps exit the program
+        sys.exit(1)   # The easier method
+        # OR perhaps throw an error
+        raise e
+        # If you choose to raise an exception,
+        # It will need to be caught by the whoever called this function
 
-# Open a cursor to perform database operations
-cur = conn.cursor()
-
+database = "news"
+db, cur = connect(database)
 """
 create a view table: this creates a new  temporary table, articles2 that
 updated the values in column slug to march those in path for
@@ -91,10 +104,9 @@ order by percentage desc; "
 cur.execute(query3)
 answer3 = cur.fetchone()
 print 'The day with more than 1% error request is:'
-for percentage, day in answer3:
-    print '{} - {}%'.format(day, percentage)
+print '{0[1]} - {0[0]}% errors'.format(answer3)
 
 
 # Close communication with the database
 cur.close()
-conn.close()
+db.close()

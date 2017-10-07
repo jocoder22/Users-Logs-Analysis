@@ -64,7 +64,7 @@ from log where status != '200 OK' group by day order by day;"
 
 query6 = "select to_char(a.day, 'FMMonth FMDD, YYYY') as dayy, \
 round(100.0 * (a.views::numeric / b.totalviews), 1) as percentage from \
-code400 a, viewsum b where a.day = b.day order by percentage desc limit 5;"
+code400 a, viewsum b where a.day = b.day order by percentage desc limit 1;"
 
 
 def fetch_query(query, cur):

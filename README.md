@@ -1,5 +1,5 @@
 # PURPOSE:
-This purpose of this project is to analyze PostgreSQL database to reach business conclusion using an internal using tool. The internal reporting tool is a Python program using the psycopg2 module to connect to the database.
+This purpose of this project is to analyze PostgreSQL database to reach business conclusion using an internal reporting tool. The internal reporting tool is a Python program using psycopg2 module to connect to the database.
 
 # BACKGROUND:
 The database is from a newspaper website. The database contains newspaper articles and web Sever log of activities on the site by readers. The log has a database row for each time a reader load a web page.

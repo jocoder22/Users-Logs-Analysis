@@ -39,7 +39,7 @@ forming a join for our queries later.
  #### VIEW code400:
   This creates view code400 from the log table with column views containing only the counts of errors per day.
 
-`cur.execute("create view code400 as select date(time) as day, count(*) as  views from log where status != '200 OK' group by day order by day;")
+`cur.execute("create view code400 as select date(time) as day, count(*) as  views from log where status != '200 OK' group by day order by day;")`
 
 
 # INTERNAL REPORTING TOOL:

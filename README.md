@@ -23,31 +23,23 @@ The project will build an internal reporting tool that uses information form the
  In building this internal reporting tool I used views to query the database. Below are the commands used in creating the views. 
 
  #### VIEW articles2:
-  This creates the view articles2 that updated the values in column slug to march those in path for forming a join for our query later.
+This creates view articles2 with modified the values in column slug in author table to march those in column path in log table for
+forming a join for our queries later.
 
  `cur.execute("create view articles2 as select author, title, concat('/article/',slug) as slug2 from articles;")`
 
 
-
-#### VIEW logview:
-  This creates the view logview from the log table with updated status column to having only the codes as code. We use this view table to create other view tables below
-
- `cur.execute("create view logview as select substring(status from 1 for 3) as code, to_char(time, 'FMMonth DD, YYYY') as day, count(path) as views from log group by code, day;")`
-
-
-
- #### VIEW viewsum:
-  This creates a temporary table viewsum to sum the total visits to the sites each day from logview view table
-
- `cur.execute("create view viewsum as select day, sum(views) as totalviews from logview group by day;")`
+#### VIEW viewsum:
+  This creates view viesum from the log table with column totalviews containing the total counts all request per day.
+  
+`cur.execute("create view viewsum as select date(time) as day, count(*) as totalviews from log group by day order by day;")`
 
 
 
  #### VIEW code400:
-  This creates the view to select only the subset from view table logview records of error requests  per day
+  This creates view code400 from the log table with column views containing only the counts of errors per day.
 
- `cur.execute("create view code400 as select code, day, views from logview group by views, day, code having code != '200';")`
-
+`cur.execute("create view code400 as select date(time) as day, count(*) as  views from log where status != '200 OK' group by day order by day;")
 
 
 # INTERNAL REPORTING TOOL:
